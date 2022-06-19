@@ -2,10 +2,11 @@ import os
 
 
 class FileUtils():
+    '''Funciones para manipulación de archivos o directorios'''
     # Comprueba si el directorio existe, si no existe lo crea
     def check_folder_exisist(folder_path: str):
         '''
-        Comprueba si el directorio existe
+        Comprueba si el directorio existe.
         En caso contrario lo crea
         '''
         isExist = os.path.exists(folder_path)

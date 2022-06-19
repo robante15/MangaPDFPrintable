@@ -4,6 +4,7 @@ from src.file_utils import FileUtils
 import os
 import shutil
 
+
 class IMGSplitter():
     def check_orientation(image_file: str):
         '''
@@ -18,7 +19,6 @@ class IMGSplitter():
         if proportion <= 1:
             return 'V'
 
-
     def splitImage(image_file: str, split_and_replace: bool = True, output_folder: str = '.temp'):
         '''
         Corta una imagen a la mitad generando dos archivos, la parte A (Der) y la parte B (Izq)
@@ -31,10 +31,10 @@ class IMGSplitter():
         # Tamaño de la imagen en píxeles (tamaño de la imagen original)
         width, height = im.size
 
-        # Configuración de los puntos para la imagen recortada
+        # Configuración de los puntos para la primera mitad
         first_half = 0, 0, width/2, height
 
-        # Configuración de los puntos para la imagen recortada
+        # Configuración de los puntos para la segunda mitad
         second_half = width/2, 0, width, height
 
         # Imagen recortada del tamaño anterior
@@ -58,24 +58,26 @@ class IMGSplitter():
             shutil.move(output_folder+'/'+im1_name, dirname+'/'+im1_name)
             shutil.move(output_folder+'/'+im2_name, dirname+'/'+im2_name)
 
-
     def identify_split_folder(folder: str, split_and_replace: bool = True, output_folder: str = '.temp'):
         '''
         Dado un directorio dado identifica las imagenes horizontales y las corta por mitad
         '''
-        directory_files = []
-        progress = 0
+        directory_files = []  # Array que contiene los archivos
+        progress = 0  # Contador de progreso
 
+        # Recorre todo el directorio dado, y añade los path al array de archivos
         for path in os.listdir(folder):
-            # check if current path is a file
+            # Cerificar si la ruta actual es un archivo
             if os.path.isfile(os.path.join(folder, path)):
-                # directory_files.append(path)
                 directory_files.append(os.path.join(folder, path))
 
+        # Calcula el step de cada pasada en el ciclo para añadir al contador
         step = 1 / len(directory_files)
+
+        # Recorre los archivos almacenados en el array, comprueba su orientación
         for file in directory_files:
-            if(FileUtils.check_orientation(file) == 'H'):
-                FileUtils.splitImage(file, split_and_replace, output_folder)
+            if(IMGSplitter.check_orientation(file) == 'H'):
+                IMGSplitter.splitImage(file, split_and_replace, output_folder)
             progress += step
             print('Avance: '+"{0:.1%}".format(progress))
 
@@ -84,7 +86,3 @@ class IMGSplitter():
                 os.rmdir(output_folder)
             except:
                 print("No hay directorio")
-
-
-#identify_split_folder('split')
-# check_folder_exisist('.temp')

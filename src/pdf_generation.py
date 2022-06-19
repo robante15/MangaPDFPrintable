@@ -6,7 +6,12 @@ from src.split_list import SplitList
 # Set general variables
 landscape_mode = True
 paper_w, paper_h = 210, 297
-manga_size_w, manga_size_h = 114, 178
+#Dr Stone
+#manga_size_w, manga_size_h = 114, 178
+#Sono Bisque Doll
+#manga_size_w, manga_size_h = 146, 210
+#The Quintessential Quintuplets
+manga_size_w, manga_size_h = 127, 191
 margin, padding = 4.65, 5
 width, height = A4
 
@@ -49,8 +54,8 @@ def add_single_page(pdf: canvas.Canvas, page, draw_margin=True):
     pdf.showPage()
 
 
-def makepdf():
-    pdf = canvas.Canvas('output/T05v1.pdf', pagesize=A4)
+def makepdf(pdf_name:str='default.pdf', source_folder:str='input'):
+    pdf = canvas.Canvas(pdf_name, pagesize=A4)
     
     if(landscape_mode):
         canvas.Canvas.setPageSize(pdf, (landscape(A4)))
@@ -59,13 +64,10 @@ def makepdf():
         width, height = landscape(A4)
         paper_w, paper_h = 297, 210
 
-    listado_chunks = SplitList.order_folder('T05')
+    listado_chunks = SplitList.order_folder(source_folder)
 
     for chunk in listado_chunks:
         add_double_page(pdf, chunk[0], chunk[1], True, True, True)
         add_double_page(pdf, chunk[2], chunk[3], True, True, False)
 
     pdf.save()
-
-
-#makepdf()
