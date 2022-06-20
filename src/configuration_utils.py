@@ -1,25 +1,44 @@
 import configparser
-class ConfigUtils():
+
+
+class ConfigUtils:
     configuracion = configparser.ConfigParser()
 
-    def initial_config():
+    def __init__(self):
+        self.PDFMakingRunning = {}
+        self.OutputPDFRunning = {}
+        self.ConfigurationSections = ['PDFMaking', 'OutputPDF']
+        self.PDFMakingDefault = {'landscape_mode': 'True',
+                                 'paper_size': 'A4', 'paper_width': '210',
+                                 'paper_height': '178',
+                                 'print_margin': '4.65',
+                                 'middle_padding': '5'}
+
+        self.OutputPDFDefault = {'directory': 'output',
+                                 'name': 'default.pdf',
+                                 'author': 'Lore Ipsum'}
+
+    def save_configs(self, PDFMakingConfig, OutputPDFConfig):
+        '''Guarda las configuraciones de PDFMaking, y OutputPDF'''
         ConfigUtils.configuracion['PDFMaking'] = {}
         PDFMaking = ConfigUtils.configuracion['PDFMaking']
-        PDFMaking['landscape_mode'] = 'True'
-        PDFMaking['paper_size'] = 'A4'
-        PDFMaking['paper_width'] = '210'
-        PDFMaking['paper_height'] = '178'
-        PDFMaking['print_margin'] = '4.65'
-        PDFMaking['middle_padding'] = '5'
+        for clave in PDFMakingConfig:
+            valor = PDFMakingConfig[clave]
+            PDFMaking[clave] = valor
 
         ConfigUtils.configuracion['OutputPDF'] = {}
         OutputPDF = ConfigUtils.configuracion['OutputPDF']
-        OutputPDF['directory']='output'
-        OutputPDF['name']='default.pdf'
+        for clave in OutputPDFConfig:
+            valor = OutputPDFConfig[clave]
+            OutputPDF[clave] = valor
 
         with open('config.cfg', 'w') as archivoconfig:
             ConfigUtils.configuracion.write(archivoconfig)
 
-    def read_section(section:str):
+    def read_section(self, section: str):
         ConfigUtils.configuracion.read('config.cfg')
         return ConfigUtils.configuracion._sections[section]
+
+    def read_actual_config(self):
+        self.OutputPDFRunning = self.read_section('OutputPDF')
+        self.PDFMakingRunning = self.read_section('PDFMaking')
