@@ -19,3 +19,14 @@ class FileUtils():
         '''
         file_name = os.path.basename(file_location)
         return(os.path.splitext(file_name))
+
+    def readFolderFiles(self, folder_path:str):
+        # list to store files
+        files_array = []
+
+        # Iterate directory
+        for path in os.listdir(folder_path):
+            # check if current path is a file
+            if os.path.isfile(os.path.join(folder_path, path)):
+                files_array.append(path)
+        return files_array
