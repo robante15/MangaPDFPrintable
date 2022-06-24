@@ -23,6 +23,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_sortTableRise.clicked.connect(self.moveUp)
         self.btn_sortTableDescend.clicked.connect(self.moveDown)
         self.btn_sortTableDelete.clicked.connect(self.deleteRow)
+        self.btn_loadHorizontal.clicked.connect(self.selectedFilesArray)
 
     def OpenFolder(self):
         folder = str(QFileDialog.getExistingDirectory(
@@ -42,7 +43,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 cell = QTableWidgetItem(str(file))
                 self.table_filesList.setItem(row, 0, cell)
         else:
-            self.statusbar.showMessage('Error: Primero debes de seleccionar un directorio')
+            self.statusbar.showMessage(
+                'Error: Primero debes de seleccionar un directorio')
 
     def TableClickEvent(self):
         row = self.table_filesList.currentRow()
@@ -81,7 +83,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if row > 0:
             self.table_filesList.insertRow(row-1)
             for i in range(self.table_filesList.columnCount()):
-                self.table_filesList.setItem(row-1, i, self.table_filesList.takeItem(row+1, i))
+                self.table_filesList.setItem(
+                    row-1, i, self.table_filesList.takeItem(row+1, i))
                 self.table_filesList.setCurrentCell(row-1, column)
             self.table_filesList.removeRow(row+1)
 
@@ -92,3 +95,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def addSeparator(self):
         row = self.table_filesList.currentRow()
         self.table_filesList.insertRow(row+1)
+
+    def selectedFilesArray(self):
+        selectedFiles = []
+        for i in range(self.table_filesList.rowCount()):
+            selectedFiles.append(self.table_filesList.item(i, 0).text())
+        return selectedFiles
