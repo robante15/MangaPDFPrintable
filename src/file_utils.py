@@ -43,7 +43,26 @@ class FileUtils():
                 files_array.append(path)
         return files_array
 
-    def moveFilesToFolder(files_list: list, output: str):
+    def copyFilesToFolder(files_list: list, files_directory: str, output: str):
+        """Copia un listado de archivos desde un directorio de origen, a uno de destino
+
+        Args:
+            files_list (list): Listado de archivos a copiar
+            files_directory (str): Directorio de origen de los archivos
+            output (str): Directorio de destino de los archivos
+        """
         FileUtils.check_folder_exisist(output)
         for file in files_list:
-            shutil.copy(file, output)
+            shutil.copy(files_directory + '/' + file, output)
+
+    def moveFilesToFolder(files_list: list, files_directory: str, output: str):
+        """Mueve un listado de archivos desde un directorio de origen, a uno de destino
+
+        Args:
+            files_list (list): Listado de archivos a mover
+            files_directory (str): Directorio de origen de los archivos
+            output (str): Directorio de destino de los archivos
+        """
+        FileUtils.check_folder_exisist(output)
+        for file in files_list:
+            shutil.move(files_directory + '/' + file, output)

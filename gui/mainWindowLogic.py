@@ -28,6 +28,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_sortTableDescend.clicked.connect(self.moveDown_filesList)
         self.btn_sortTableDelete.clicked.connect(self.deleteCurrentRow_filesList)
         self.btn_sortMainList.clicked.connect(self.sort_filesList)
+        self.btn_fileListOK.clicked.connect(self.fileListOk)
 
         # Pestaña 2
         self.btn_splitFiles.clicked.connect(self.splitFilesAction)
@@ -49,8 +50,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def fileListOk(self):
         global INPUT_DIRECTORY
+        global WORKING_DIRECTORY
         filesOk = TH.filesOnTableArray(self.table_filesList)
-        FileUtils.copyFilesToFolder(filesOk)
+        FileUtils.copyFilesToFolder(filesOk, INPUT_DIRECTORY, WORKING_DIRECTORY)
 
     def OpenInputFolder(self):
         """Abre el directorio desde el cual se van a leer los archivos del manga
@@ -79,8 +81,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Lee los archivos del directorio dado y popula la tabla con sus nombres
         """
         if self.txt_inputFolder.text() != '':
-            fUtils = FileUtils()
-            files_array = fUtils.readFolderFiles(self.txt_inputFolder.text())
+            files_array = FileUtils.readFolderFiles(self.txt_inputFolder.text())
             TH.cleanTable(self.table_filesList)
             TH.fillTable(files_array, self.table_filesList)
         else:
@@ -97,36 +98,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def TableHorizontalClickEvent(self):
         row = self.table_horizontalList.currentRow()
         image_path = self.table_horizontalList.item(row, 0).text()
-        global INPUT_DIRECTORY
-        GFXHelper.loadPreview(INPUT_DIRECTORY+'/' +
+        global WORKING_DIRECTORY
+        GFXHelper.loadPreview(WORKING_DIRECTORY+'/' +
                               image_path, self.gfx_splitPreview)
 
     def TableSplitedFilesClickEvent(self):
         row = self.table_splitedFiles.currentRow()
         image_path = self.table_splitedFiles.item(row, 0).text()
-        global INPUT_DIRECTORY
-        GFXHelper.loadPreview(INPUT_DIRECTORY+'/' +
+        global WORKING_DIRECTORY
+        GFXHelper.loadPreview(WORKING_DIRECTORY+'/' +
                               image_path, self.gfx_splitPreview)
 
     def loadHorizontalFiles(self):
         selectedFiles = TH.filesOnTableArray(self.table_filesList)
         HorizontalFiles = []
-        global INPUT_DIRECTORY
+        global WORKING_DIRECTORY
         for file in selectedFiles:
             orientation = IMGSplitter.check_orientation(
-                INPUT_DIRECTORY + '/' + file)
+                WORKING_DIRECTORY + '/' + file)
             if orientation == 'H':
                 HorizontalFiles.append(file)
         TH.fillTable(HorizontalFiles, self.table_horizontalList)
 
     def splitFilesAction(self):
         horizontalFiles: list = TH.filesOnTableArray(self.table_horizontalList)
-        global INPUT_DIRECTORY
+        global WORKING_DIRECTORY
         splitedFilesPathArray = []
         splitedFilesArray = []
         for file in horizontalFiles:
-            absFile = INPUT_DIRECTORY + '/' + file
-            output = INPUT_DIRECTORY
+            absFile = WORKING_DIRECTORY + '/' + file
+            output = WORKING_DIRECTORY
             imB, imA = IMGSplitter.splitImage(absFile, True, output)
             splitedFilesPathArray.append(imA)
             splitedFilesPathArray.append(imB)

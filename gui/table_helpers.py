@@ -1,5 +1,6 @@
 from xmlrpc.client import Boolean
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QLabel
+from PyQt5.QtGui import QPixmap
 
 
 class TableHelpers():
@@ -24,6 +25,11 @@ class TableHelpers():
             table.setRowCount(row+1)
             cell = QTableWidgetItem(str(file))
             table.setItem(row, 0, cell)
+
+            '''label = QLabel()
+            pixmap = QPixmap('resources/X_sep.png')
+            label.setPixmap(pixmap)
+            table.setItem(row, 1, label)'''
 
     def deleteCurrentRow(table: QTableWidget):
         """Elimina una fila de la tabla

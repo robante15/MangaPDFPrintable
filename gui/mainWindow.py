@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'gui/mainWindow.ui'
+# Form implementation generated from reading ui file '.\gui\mainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -117,11 +117,14 @@ class Ui_MainWindow(object):
         self.verticalLayout_9 = QtWidgets.QVBoxLayout()
         self.verticalLayout_9.setObjectName("verticalLayout_9")
         self.table_filesList = QtWidgets.QTableWidget(self.groupBox_2)
+        self.table_filesList.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.table_filesList.setObjectName("table_filesList")
-        self.table_filesList.setColumnCount(1)
+        self.table_filesList.setColumnCount(2)
         self.table_filesList.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.table_filesList.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_filesList.setHorizontalHeaderItem(1, item)
         self.verticalLayout_9.addWidget(self.table_filesList)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -201,7 +204,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1044, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1044, 21))
         self.menubar.setObjectName("menubar")
         self.menuArchivo = QtWidgets.QMenu(self.menubar)
         self.menuArchivo.setObjectName("menuArchivo")
@@ -241,6 +244,8 @@ class Ui_MainWindow(object):
         self.table_filesList.setSortingEnabled(False)
         item = self.table_filesList.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Nombre"))
+        item = self.table_filesList.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Preview"))
         self.btn_fileListOK.setText(_translate("MainWindow", "Aceptar"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Inicio"))
         self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))

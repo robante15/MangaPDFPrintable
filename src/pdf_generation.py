@@ -62,7 +62,12 @@ def add_single_page(pdf: canvas.Canvas, page, draw_margin=True):
 
 
 def makepdf(pdf_name: str = 'default.pdf', source_folder: str = 'input'):
-    '''Genera un PDF a partir de los archivos de imagen contenidos dentro de un folder, ordenandolos para facilitar su impresión'''
+    """Genera un PDF a partir de los archivos de imagen contenidos dentro de un folder, ordenandolos para facilitar su impresión
+
+    Args:
+        pdf_name (str, optional): Nombre del archivo pdf a generar. Defaults to 'default.pdf'.
+        source_folder (str, optional): Directorio de origen de los archivos. Defaults to 'input'.
+    """
     pdf = canvas.Canvas('output/'+pdf_name, pagesize=A4)
 
     if(landscape_mode):
