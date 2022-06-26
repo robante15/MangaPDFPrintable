@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1044</width>
-    <height>729</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Manga PDF Maker</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_4">
+   <layout class="QVBoxLayout" name="verticalLayout_10">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
@@ -32,57 +32,66 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QLabel" name="lbl_inputFolder">
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="2" column="3">
+              <widget class="QCheckBox" name="sort_includeSubfolder">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="text">
-                <string>Directorio de Entrada</string>
+                <string>Incluir subcarpetas</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QLineEdit" name="txt_inputFolder"/>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_openFolder">
-               <property name="text">
-                <string>Seleccionar</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
+             <item row="1" column="0">
               <widget class="QLabel" name="lbl_workingDirectory">
                <property name="text">
                 <string>Directorio de Trabajo</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QLineEdit" name="txt_workingDirectory"/>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_workingDirectory">
+             <item row="3" column="0">
+              <widget class="QPushButton" name="btn_loadFolderFiles">
                <property name="text">
-                <string>Seleccionar</string>
+                <string>Cargar archivos</string>
                </property>
               </widget>
              </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
-             <item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lbl_inputFolder">
+               <property name="text">
+                <string>Directorio de Entrada</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QPushButton" name="btn_ShowPicture">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Mostrar Imagen</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QRadioButton" name="rbtn_sortCreationDate">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Fecha de creación</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
               <widget class="QLabel" name="lbl_sortOrder">
                <property name="text">
-                <string>Orden de Importación:</string>
+                <string>Orden de Importación</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="2" column="1">
               <widget class="QRadioButton" name="rbtn_sortName">
                <property name="enabled">
                 <bool>true</bool>
@@ -95,34 +104,14 @@
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QRadioButton" name="rbtn_sortCreationDate">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>Fecha de creación</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="sort_includeSubfolder">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>Incluir subcarpetas</string>
-               </property>
-              </widget>
-             </item>
-             <item>
+             <item row="2" column="4">
               <widget class="QPushButton" name="btn_sortMainList">
                <property name="text">
                 <string>Ordenar</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="2" column="5">
               <spacer name="horizontalSpacer">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -135,39 +124,25 @@
                </property>
               </spacer>
              </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <item>
-              <widget class="QPushButton" name="btn_loadFolderFiles">
+             <item row="0" column="6">
+              <widget class="QPushButton" name="btn_openFolder">
                <property name="text">
-                <string>Cargar archivos</string>
+                <string>Seleccionar</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="btn_ShowPicture">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
+             <item row="1" column="6">
+              <widget class="QPushButton" name="btn_workingDirectory">
                <property name="text">
-                <string>Mostrar Imagen</string>
+                <string>Seleccionar</string>
                </property>
               </widget>
              </item>
-             <item>
-              <spacer name="horizontalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
+             <item row="0" column="1" colspan="5">
+              <widget class="QLineEdit" name="txt_inputFolder"/>
+             </item>
+             <item row="1" column="1" colspan="5">
+              <widget class="QLineEdit" name="txt_workingDirectory"/>
              </item>
             </layout>
            </item>
@@ -417,6 +392,218 @@
        <attribute name="title">
         <string>Generación de PDF</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_12">
+        <item>
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="title">
+           <string>GroupBox</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="lbl_pdfName">
+               <property name="text">
+                <string>Nombre del PDF</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="5">
+              <widget class="QLineEdit" name="txt_paperHeight">
+               <property name="text">
+                <string>297</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="7">
+              <widget class="QPushButton" name="btn_pdfInputDirectory">
+               <property name="text">
+                <string>Seleccionar</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="5">
+              <widget class="QLineEdit" name="txt_mangaHeight"/>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="txt_pdfName"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="lbl_innerSpacing">
+               <property name="text">
+                <string>Espaciado interno (mm)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QLineEdit" name="txt_paperWidth">
+               <property name="text">
+                <string>210</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="cBox_mangaSize">
+               <property name="minimumSize">
+                <size>
+                 <width>120</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="4">
+              <widget class="QLabel" name="lbl_mangaHeight">
+               <property name="text">
+                <string>Alto</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="txt_innerSpacing">
+               <property name="text">
+                <string>5</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLabel" name="lbl_paperWidth">
+               <property name="text">
+                <string>Ancho</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="lbl_paperSize">
+               <property name="text">
+                <string>Tamaño del papel (mm)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="cbox_paperSize">
+               <property name="minimumSize">
+                <size>
+                 <width>120</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <item>
+                <property name="text">
+                 <string>A4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Carta</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="lbl_pdfInputDirectory">
+               <property name="text">
+                <string>Directorio de entrada</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLabel" name="lbl_mangaWidth">
+               <property name="text">
+                <string>Ancho</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="lbl_mangaSize">
+               <property name="text">
+                <string>Tamaño del manga (mm)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3">
+              <widget class="QLineEdit" name="txt_mangaWidth"/>
+             </item>
+             <item row="1" column="4">
+              <widget class="QLabel" name="lbl_paperHeight">
+               <property name="text">
+                <string>Alto</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="6">
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="3" colspan="4">
+              <widget class="QLineEdit" name="txt_pdfInputDirectory"/>
+             </item>
+             <item row="3" column="7">
+              <widget class="QPushButton" name="btn_generatePDF">
+               <property name="text">
+                <string>Generar PDF</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="title">
+           <string>GroupBox</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_11">
+           <item>
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGraphicsView" name="graphicsView"/>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_14">
+             <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>PushButton</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_2">
+               <property name="text">
+                <string>PushButton</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_3">
+               <property name="text">
+                <string>PushButton</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -427,8 +614,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1044</width>
-     <height>21</height>
+     <width>1024</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">

@@ -64,7 +64,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         INPUT_DIRECTORY = folder
         global WORKING_DIRECTORY
         WORKING_DIRECTORY = folder + '/temp'
+        self.txt_pdfName.setText(os.path.basename(INPUT_DIRECTORY))
         self.txt_workingDirectory.setText(WORKING_DIRECTORY)
+        self.txt_pdfInputDirectory.setText(WORKING_DIRECTORY)
         self.statusbar.showMessage('Directorio: ' + INPUT_DIRECTORY)
 
     def OpenWokingFolder(self):
@@ -125,12 +127,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global WORKING_DIRECTORY
         splitedFilesPathArray = []
         splitedFilesArray = []
+        
         for file in horizontalFiles:
-            absFile = WORKING_DIRECTORY + '/' + file
             output = WORKING_DIRECTORY
+            absFile = WORKING_DIRECTORY + '/' + file
             imB, imA = IMGSplitter.splitImage(absFile, True, output)
             splitedFilesPathArray.append(imA)
             splitedFilesPathArray.append(imB)
+        
         for fileSplited in splitedFilesPathArray:
             splitedFilesArray.append(os.path.basename(fileSplited))
-        TH.fillTable(splitedFilesArray, self.table_splitedFiles)
+        TH.fillTable(splitedFilesArray, self.table_splitedFiles)     
+
+# ----------------------- Pestaña 3 / Generación del PDF ----------------------- #
