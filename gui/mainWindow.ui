@@ -64,7 +64,7 @@
              <item>
               <widget class="QRadioButton" name="rbtn_sortName">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="text">
                 <string>Nombre</string>
@@ -91,6 +91,13 @@
                </property>
                <property name="text">
                 <string>Incluir subcarpetas</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_sortMainList">
+               <property name="text">
+                <string>Ordenar</string>
                </property>
               </widget>
              </item>
@@ -215,6 +222,9 @@
            </item>
            <item>
             <widget class="QTableWidget" name="table_filesList">
+             <property name="sortingEnabled">
+              <bool>false</bool>
+             </property>
              <column>
               <property name="text">
                <string>Nombre</string>
@@ -299,6 +309,9 @@
              </item>
              <item>
               <widget class="QTableWidget" name="table_horizontalList">
+               <property name="sortingEnabled">
+                <bool>false</bool>
+               </property>
                <column>
                 <property name="text">
                  <string>Nombre</string>
@@ -314,7 +327,13 @@
               </widget>
              </item>
              <item>
-              <widget class="QTableWidget" name="table_splitedFiles"/>
+              <widget class="QTableWidget" name="table_splitedFiles">
+               <column>
+                <property name="text">
+                 <string>Nombre</string>
+                </property>
+               </column>
+              </widget>
              </item>
             </layout>
            </item>
@@ -347,7 +366,7 @@
      <x>0</x>
      <y>0</y>
      <width>1044</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">

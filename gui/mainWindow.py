@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\gui\mainWindow.ui'
+# Form implementation generated from reading ui file 'gui/mainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -47,7 +47,7 @@ class Ui_MainWindow(object):
         self.lbl_sortOrder.setObjectName("lbl_sortOrder")
         self.horizontalLayout_5.addWidget(self.lbl_sortOrder)
         self.rbtn_sortName = QtWidgets.QRadioButton(self.groupBox)
-        self.rbtn_sortName.setEnabled(False)
+        self.rbtn_sortName.setEnabled(True)
         self.rbtn_sortName.setChecked(True)
         self.rbtn_sortName.setObjectName("rbtn_sortName")
         self.horizontalLayout_5.addWidget(self.rbtn_sortName)
@@ -59,6 +59,9 @@ class Ui_MainWindow(object):
         self.sort_includeSubfolder.setEnabled(False)
         self.sort_includeSubfolder.setObjectName("sort_includeSubfolder")
         self.horizontalLayout_5.addWidget(self.sort_includeSubfolder)
+        self.btn_sortMainList = QtWidgets.QPushButton(self.groupBox)
+        self.btn_sortMainList.setObjectName("btn_sortMainList")
+        self.horizontalLayout_5.addWidget(self.btn_sortMainList)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_5.addItem(spacerItem)
         self.verticalLayout.addLayout(self.horizontalLayout_5)
@@ -155,8 +158,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.addWidget(self.lbl_Splited)
         self.table_splitedFiles = QtWidgets.QTableWidget(self.groupBox_4)
         self.table_splitedFiles.setObjectName("table_splitedFiles")
-        self.table_splitedFiles.setColumnCount(0)
+        self.table_splitedFiles.setColumnCount(1)
         self.table_splitedFiles.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_splitedFiles.setHorizontalHeaderItem(0, item)
         self.verticalLayout_5.addWidget(self.table_splitedFiles)
         self.horizontalLayout_3.addLayout(self.verticalLayout_5)
         self.verticalLayout_6 = QtWidgets.QVBoxLayout()
@@ -173,7 +178,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1044, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1044, 22))
         self.menubar.setObjectName("menubar")
         self.menuArchivo = QtWidgets.QMenu(self.menubar)
         self.menuArchivo.setObjectName("menuArchivo")
@@ -200,6 +205,7 @@ class Ui_MainWindow(object):
         self.rbtn_sortName.setText(_translate("MainWindow", "Nombre"))
         self.rbtn_sortCreationDate.setText(_translate("MainWindow", "Fecha de creación"))
         self.sort_includeSubfolder.setText(_translate("MainWindow", "Incluir subcarpetas"))
+        self.btn_sortMainList.setText(_translate("MainWindow", "Ordenar"))
         self.btn_loadFolderFiles.setText(_translate("MainWindow", "Cargar archivos"))
         self.btn_ShowPicture.setText(_translate("MainWindow", "Mostrar Imagen"))
         self.groupBox_2.setTitle(_translate("MainWindow", "GroupBox"))
@@ -207,6 +213,7 @@ class Ui_MainWindow(object):
         self.btn_sortTableAddSeparator.setText(_translate("MainWindow", "Separador"))
         self.btn_sortTableDelete.setText(_translate("MainWindow", "Eliminar"))
         self.btn_sortTableDescend.setText(_translate("MainWindow", "Bajar"))
+        self.table_filesList.setSortingEnabled(False)
         item = self.table_filesList.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Nombre"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Inicio"))
@@ -216,9 +223,12 @@ class Ui_MainWindow(object):
         self.btn_splitOK.setText(_translate("MainWindow", "Split Correcto"))
         self.groupBox_4.setTitle(_translate("MainWindow", "GroupBox"))
         self.lbl_HSplit.setText(_translate("MainWindow", "Imagenes Horizontales"))
+        self.table_horizontalList.setSortingEnabled(False)
         item = self.table_horizontalList.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Nombre"))
         self.lbl_Splited.setText(_translate("MainWindow", "Imagenes Cortadas"))
+        item = self.table_splitedFiles.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "Nombre"))
         self.lbl_splitPreview.setText(_translate("MainWindow", "Preview"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "HSplit"))
         self.menuArchivo.setTitle(_translate("MainWindow", "Archivo"))
