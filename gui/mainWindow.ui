@@ -251,6 +251,13 @@
               </widget>
              </item>
              <item>
+              <widget class="QPushButton" name="btn_splitFiles">
+               <property name="text">
+                <string>Cortar Img.</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <spacer name="horizontalSpacer_3">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -264,7 +271,7 @@
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_SplitOK">
+              <widget class="QPushButton" name="btn_splitOK">
                <property name="text">
                 <string>Split Correcto</string>
                </property>
@@ -291,7 +298,13 @@
               </widget>
              </item>
              <item>
-              <widget class="QTableView" name="table_horizontalList"/>
+              <widget class="QTableWidget" name="table_horizontalList">
+               <column>
+                <property name="text">
+                 <string>Nombre</string>
+                </property>
+               </column>
+              </widget>
              </item>
              <item>
               <widget class="QLabel" name="lbl_Splited">
@@ -301,7 +314,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QTableView" name="table_splitedFiles"/>
+              <widget class="QTableWidget" name="table_splitedFiles"/>
              </item>
             </layout>
            </item>
