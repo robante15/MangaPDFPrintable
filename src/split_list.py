@@ -80,5 +80,8 @@ class SplitList():
         SplitList.sort_pattern(chuncked_list)
         return chuncked_list
 
-#listado_ordenado = order_folder('DS62')
-# print(listado_ordenado)
+    def order_list(source_list: list, chunk_size: int = 4):
+        chuncked_list: list = SplitList.chunk_list(source_list, chunk_size)
+        SplitList.fill_chunked_list(chuncked_list)
+        SplitList.sort_pattern(chuncked_list)
+        return chuncked_list

@@ -2,12 +2,13 @@ import os
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 
-
 from gui.mainWindow import Ui_MainWindow
 from gui.table_helpers import TableHelpers as TH
 from gui.gfx_preview_helper import GFXHelper
+
 from src.img_splitter import IMGSplitter
 from src.file_utils import FileUtils
+from src.pdf_generation import PDFGeneration
 
 INPUT_DIRECTORY: str = ''
 WORKING_DIRECTORY: str = ''
@@ -35,6 +36,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_loadHorizontal.clicked.connect(self.loadHorizontalFiles)
         self.table_horizontalList.itemClicked.connect(self.TableHorizontalClickEvent)
         self.table_splitedFiles.itemClicked.connect(self.TableSplitedFilesClickEvent)
+
+        # Pestaña 3
+        self.btn_generatePDF.clicked.connect(self.generatePDFAction)
 
     def deleteCurrentRow_filesList(self):
         TH.deleteCurrentRow(self.table_filesList)
@@ -140,3 +144,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         TH.fillTable(splitedFilesArray, self.table_splitedFiles)     
 
 # ----------------------- Pestaña 3 / Generación del PDF ----------------------- #
+    def generatePDFAction(self):
+        global WORKING_DIRECTORY
+        MakePDFArray = FileUtils.readFolderFiles(WORKING_DIRECTORY)
+        MakePDFArray.sort()
+        indice = 0
+        for file in MakePDFArray:
+            MakePDFArray[indice] = WORKING_DIRECTORY + '/' + file
+            indice+=1
+        PDFName = self.txt_pdfName.text() + '.pdf'
+        print(MakePDFArray)
+        PDFGeneration.makepdf(MakePDFArray, PDFName)
