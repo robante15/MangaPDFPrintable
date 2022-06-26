@@ -7,10 +7,14 @@ import shutil
 
 class IMGSplitter():
     def check_orientation(image_file: str):
-        '''
-        Comprueba la orientación de un archivo de imágen. 
-        Si es Horizontal retorna "H", si es Vertical retorna "V"
-        '''
+        """Comprueba la orientación de un archivo de imágen. 
+
+        Args:
+            image_file (str): Archivo de imágen a detectar la orientación
+
+        Returns:
+            chr: Si es Horizontal retorna "H", si es Vertical retorna "V"
+        """
         temp_img = Image.open(image_file)
         width, height = temp_img.size
         proportion = width / height
@@ -20,9 +24,17 @@ class IMGSplitter():
             return 'V'
 
     def splitImage(image_file: str, split_and_replace: bool = True, output_folder: str = '.temp'):
-        '''
-        Corta una imagen a la mitad generando dos archivos, la parte A (Der) y la parte B (Izq)
-        '''
+        """Corta una imagen a la mitad generando dos archivos, la parte A (Der) y la parte B (Izq)
+
+        Args:
+            image_file (str): Archivo de imágen sobre el cual realizar el corte
+            split_and_replace (bool, optional): Sobreescribe el archivo, o lo guarda aparte. Defaults to True.
+            output_folder (str, optional): Directorio de salida del archivo recortado. Defaults to '.temp'.
+
+        Returns:
+            im1_path (str): Ruta de la mitad B
+            im1_path (str): Ruta de la mitad A
+        """
         dirname, filename = os.path.split(os.path.abspath(image_file))
         im_name, im_ext = os.path.splitext(filename)
         # Abre una imagen en modo RGB
@@ -50,18 +62,28 @@ class IMGSplitter():
         FileUtils.check_folder_exisist(output_folder)
 
         # Guardado de las imagenes
-        im1.save(output_folder+'/'+im1_name)
-        im2.save(output_folder+'/'+im2_name)
+        im1_path = output_folder+'/'+im1_name
+        im2_path = output_folder+'/'+im2_name
+        im1.save(im1_path)
+        im2.save(im2_path)
 
         if split_and_replace == True:
-            os.remove(image_file)
+            # os.remove(image_file)
+            FileUtils.check_folder_exisist(dirname + '/originalH')
+            shutil.move(image_file, dirname + '/originalH')
             shutil.move(output_folder+'/'+im1_name, dirname+'/'+im1_name)
             shutil.move(output_folder+'/'+im2_name, dirname+'/'+im2_name)
 
+        return(im1_path, im2_path)
+
     def identify_split_folder(folder: str, split_and_replace: bool = True, output_folder: str = '.temp'):
-        '''
-        Dado un directorio dado identifica las imagenes horizontales y las corta por mitad
-        '''
+        """Dado un directorio dado identifica las imagenes horizontales y las corta por mitad
+
+        Args:
+            folder (str): Directorio de entrada para realizar el Split
+            split_and_replace (bool, optional): Sobreescribe los archivos, o los guarda aparte. Defaults to True.
+            output_folder (str, optional): Directorio de salida de los archivos recortados. Defaults to '.temp'.
+        """
         directory_files = []  # Array que contiene los archivos
         progress = 0  # Contador de progreso
 

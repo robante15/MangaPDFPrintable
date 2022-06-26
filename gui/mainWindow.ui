@@ -53,6 +53,27 @@
             </layout>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLabel" name="lbl_workingDirectory">
+               <property name="text">
+                <string>Directorio de Trabajo</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="txt_workingDirectory"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_workingDirectory">
+               <property name="text">
+                <string>Seleccionar</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
               <widget class="QLabel" name="lbl_sortOrder">
@@ -158,7 +179,7 @@
           <property name="title">
            <string>GroupBox</string>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
@@ -221,16 +242,44 @@
             </layout>
            </item>
            <item>
-            <widget class="QTableWidget" name="table_filesList">
-             <property name="sortingEnabled">
-              <bool>false</bool>
-             </property>
-             <column>
-              <property name="text">
-               <string>Nombre</string>
-              </property>
-             </column>
-            </widget>
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <item>
+              <widget class="QTableWidget" name="table_filesList">
+               <property name="sortingEnabled">
+                <bool>false</bool>
+               </property>
+               <column>
+                <property name="text">
+                 <string>Nombre</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <item>
+                <widget class="QPushButton" name="btn_fileListOK">
+                 <property name="text">
+                  <string>Aceptar</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_4">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+            </layout>
            </item>
            <item>
             <widget class="QGraphicsView" name="gfx_Preview"/>
