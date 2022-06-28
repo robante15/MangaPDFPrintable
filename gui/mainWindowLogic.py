@@ -55,8 +55,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def fileListOk(self):
         global INPUT_DIRECTORY
         global WORKING_DIRECTORY
-        filesOk = TH.filesOnTableArray(self.table_filesList)
-        FileUtils.copyFilesToFolder(filesOk, INPUT_DIRECTORY, WORKING_DIRECTORY)
+        if self.table_filesList.rowCount() != 0:
+            filesOk = TH.filesOnTableArray(self.table_filesList)
+            FileUtils.copyFilesToFolder(filesOk, INPUT_DIRECTORY, WORKING_DIRECTORY)
+        else:
+            self.statusbar.showMessage('Error: Debes de seleccionar archivos primero')
 
     def OpenInputFolder(self):
         """Abre el directorio desde el cual se van a leer los archivos del manga
@@ -153,5 +156,4 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             MakePDFArray[indice] = WORKING_DIRECTORY + '/' + file
             indice+=1
         PDFName = self.txt_pdfName.text() + '.pdf'
-        print(MakePDFArray)
         PDFGeneration.makepdf(MakePDFArray, PDFName)

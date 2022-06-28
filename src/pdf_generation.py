@@ -13,7 +13,9 @@ paper_w, paper_h = 210, 297
 # The Quintessential Quintuplets
 #manga_size_w, manga_size_h = 127, 191
 # SpyXFamily
-manga_size_w, manga_size_h = 130, 180
+#manga_size_w, manga_size_h = 130, 180
+# Plunderer
+manga_size_w, manga_size_h = 145, 208
 margin, padding = 4.65, 5
 width, height = A4
 
