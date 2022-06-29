@@ -1,3 +1,4 @@
+from calendar import c
 import os
 
 
@@ -19,7 +20,7 @@ class SplitList():
             chunked_list.append(list[i:i+chunk_size])
         return chunked_list
 
-    def fill_chunked_list(chunked_list: list, filler: int = 4, fillment: str = 'resources/blank.png'):
+    def fill_chunked_list(chunked_list: list, filler: int = 4, fillment: list = ['blank.png', 'resources']):
         """Rellena el listado con los elementos faltantes
 
         Args:

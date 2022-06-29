@@ -145,17 +145,17 @@
               <widget class="QLineEdit" name="txt_workingDirectory"/>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="lbl_separator">
                <property name="text">
                 <string>Separador</string>
                </property>
               </widget>
              </item>
              <item row="2" column="1" colspan="5">
-              <widget class="QLineEdit" name="lineEdit"/>
+              <widget class="QLineEdit" name="txt_separatorPath"/>
              </item>
              <item row="2" column="6">
-              <widget class="QPushButton" name="pushButton_4">
+              <widget class="QPushButton" name="btn_selectSeparator">
                <property name="text">
                 <string>Seleccionar</string>
                </property>
@@ -197,7 +197,7 @@
              <item>
               <widget class="QPushButton" name="btn_sortTableAddSeparator">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="text">
                 <string>Separador</string>
@@ -240,6 +240,9 @@
                <property name="editTriggers">
                 <set>QAbstractItemView::NoEditTriggers</set>
                </property>
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
+               </property>
                <property name="sortingEnabled">
                 <bool>false</bool>
                </property>
@@ -251,6 +254,11 @@
                <column>
                 <property name="text">
                  <string>Preview</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Directorio</string>
                 </property>
                </column>
               </widget>
@@ -346,7 +354,32 @@
           <property name="title">
            <string>GroupBox</string>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,4,5">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_13">
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Lista Ordenada</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTableWidget" name="table_SortedSplitedFiles">
+               <column>
+                <property name="text">
+                 <string>Nombre</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Directorio</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </item>
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
@@ -358,12 +391,30 @@
              </item>
              <item>
               <widget class="QTableWidget" name="table_horizontalList">
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
+               </property>
                <property name="sortingEnabled">
                 <bool>false</bool>
                </property>
                <column>
                 <property name="text">
                  <string>Nombre</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Preview</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Directorio</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Posición</string>
                 </property>
                </column>
               </widget>
@@ -377,9 +428,27 @@
              </item>
              <item>
               <widget class="QTableWidget" name="table_splitedFiles">
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
+               </property>
                <column>
                 <property name="text">
                  <string>Nombre</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Preview</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Directorio</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Posición</string>
                 </property>
                </column>
               </widget>

@@ -13,19 +13,26 @@ class TableHelpers():
         while (table.rowCount() > 0):
             table.removeRow(0)
 
-    def fillTable(filesArray: list, table: QTableWidget):
+    def fillTable(filesArray: list, table: QTableWidget, splitTable = False, directoryCol:int = 2):
         """Rellena una tabla con un array unidimensional con el nombre del archivo de imágen
 
         Args:
-            filesArray (list): Listado de archivos
+            filesArray (list): Listado de archivos [archivo.ext, directorio]
             table (QTableWidget): Tabla que se va a popular
         """
         for file in filesArray:
-            row = table.rowCount()
-            table.setRowCount(row+1)
-            cell = QTableWidgetItem(str(file))
-            table.setItem(row, 0, cell)
-
+            fila = table.rowCount()
+            table.setRowCount(fila+1)
+            
+            celda = QTableWidgetItem(str(file[0]))
+            table.setItem(fila, 0, celda)
+            
+            celda = QTableWidgetItem(str(file[1]))
+            table.setItem(fila, directoryCol, celda)
+            
+            if splitTable:
+                celda = QTableWidgetItem(str(int(file[2])+1))
+                table.setItem(fila, 3, celda)
             '''label = QLabel()
             pixmap = QPixmap('resources/X_sep.png')
             label.setPixmap(pixmap)
@@ -40,18 +47,22 @@ class TableHelpers():
         row = table.currentRow()
         table.removeRow(row)
 
-    def filesOnTableArray(table: QTableWidget):
+    def filesOnTableArray(table: QTableWidget, getIndex = False):
         """Retorna los nombres de los archivos en una table
 
         Args:
             table (QTableWidget): Tabla sobre la que se va a ejecutar la acción
 
         Returns:
-            filesOnTable (list): Listado de archivos en la tabla
+            filesOnTable (list): Listado de archivos en la tabla [archivo.ext, directorio]
         """
         filesOnTable: list = []
         for i in range(table.rowCount()):
-            filesOnTable.append(table.item(i, 0).text())
+            if getIndex == False:
+                files_plus_path = [table.item(i, 0).text(), table.item(i, 2).text()]
+            else:
+                files_plus_path = [table.item(i, 0).text(), table.item(i, 2).text(), table.item(i,3).text()]
+            filesOnTable.append(files_plus_path)
         return filesOnTable
 
     def sortFilesOnTable(table: QTableWidget, rev: Boolean = False):

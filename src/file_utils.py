@@ -31,29 +31,35 @@ class FileUtils():
             folder_path (str): Directorio de analisis
 
         Returns:
-            files_array (list): Listado de archivos dentro del directorio
+            files_array (list): Array que contiene un listado de archivos dentro del directorio [nombre.ext, directorio]
         """
-        # list to store files
-        files_array = []
+        # Listado de archivos
+        files_array: list = []
 
         # Iterate directory
         for path in os.listdir(folder_path):
             # check if current path is a file
             if os.path.isfile(os.path.join(folder_path, path)):
-                files_array.append(path)
+                file_plus_path = [path, folder_path]
+                files_array.append(file_plus_path)
         return files_array
 
-    def copyFilesToFolder(files_list: list, files_directory: str, output: str):
+    def changeDirectoryFileList(filesArray: list, newLocation: str):
+        filesArrayTemp = filesArray
+        for file in filesArrayTemp:
+            file[1] = newLocation
+        return filesArrayTemp
+
+    def copyFilesToFolder(files_list: list, output: str):
         """Copia un listado de archivos desde un directorio de origen, a uno de destino
 
         Args:
-            files_list (list): Listado de archivos a copiar
-            files_directory (str): Directorio de origen de los archivos
+            files_list (list): Listado de archivos a copiar [archivo.ext, directorio]
             output (str): Directorio de destino de los archivos
         """
         FileUtils.check_folder_exisist(output)
         for file in files_list:
-            shutil.copy(files_directory + '/' + file, output)
+            shutil.copy(file[1] + '/' + file[0], output)
 
     def moveFilesToFolder(files_list: list, files_directory: str, output: str):
         """Mueve un listado de archivos desde un directorio de origen, a uno de destino
@@ -66,3 +72,12 @@ class FileUtils():
         FileUtils.check_folder_exisist(output)
         for file in files_list:
             shutil.move(files_directory + '/' + file, output)
+    
+    def addSplitedToArray(originalArray:list, duplaSplitedFilesArray:list):
+        iterador = 0
+        for duplaFiles in duplaSplitedFilesArray:
+            originalArray.pop(duplaFiles[0][2] + iterador)
+            originalArray.insert(duplaFiles[1][2] + iterador, duplaFiles[1])
+            originalArray.insert(duplaFiles[0][2] + iterador, duplaFiles[0])
+            iterador+=1
+        return originalArray

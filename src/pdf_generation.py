@@ -15,7 +15,9 @@ paper_w, paper_h = 210, 297
 # SpyXFamily
 #manga_size_w, manga_size_h = 130, 180
 # Plunderer
-manga_size_w, manga_size_h = 145, 208
+#manga_size_w, manga_size_h = 145, 208
+# Initial D
+manga_size_w, manga_size_h = 127, 197
 margin, padding = 4.65, 5
 width, height = A4
 
@@ -77,11 +79,11 @@ class PDFGeneration():
             global paper_w, paper_h
             width, height = landscape(A4)
             paper_w, paper_h = 297, 210
-
         listado_chunks = SplitList.order_list(source_list)
 
         for chunk in listado_chunks:
-            PDFGeneration.add_double_page(pdf, chunk[0], chunk[1], True, True, True)
-            PDFGeneration.add_double_page(pdf, chunk[2], chunk[3], True, True, False)
+            PDFGeneration.add_double_page(pdf, chunk[0][1]+'/'+chunk[0][0], chunk[1][1]+'/'+chunk[1][0], True, True, True)
+            PDFGeneration.add_double_page(pdf, chunk[2][1]+'/'+chunk[2][0], chunk[3][1]+'/'+chunk[3][0], True, True, False)
 
         pdf.save()
+
