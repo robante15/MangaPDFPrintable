@@ -23,7 +23,7 @@ class IMGSplitter():
         if proportion <= 1:
             return 'V'
 
-    def splitImage(image_file: str, originalIndex, split_and_replace: bool = True, output_folder: str = '.temp', backupFolder:str = 'originalH'):
+    def splitImage(image_file: str, originalIndex, split_and_replace: bool = True, output_folder: str = '.temp', backupFolder: str = 'originalH'):
         """Corta una imagen a la mitad generando dos archivos, la parte A (Der) y la parte B (Izq)
 
         Args:
@@ -62,8 +62,8 @@ class IMGSplitter():
         FileUtils.check_folder_exisist(output_folder)
 
         # Guardado de las imagenes
-        im1_path = [im1_name,output_folder, originalIndex]
-        im2_path = [im2_name,output_folder, originalIndex]
+        im1_path = [im1_name, output_folder, originalIndex]
+        im2_path = [im2_name, output_folder, originalIndex]
         im1.save(im1_path[1]+'/'+im1_path[0])
         im2.save(im2_path[1]+'/'+im2_path[0])
 
@@ -108,3 +108,17 @@ class IMGSplitter():
                 os.rmdir(output_folder)
             except:
                 print("No hay directorio")
+
+    def computeGCD(x, y):
+        # looping
+        while (y):
+            x, y = y, x % y
+            # returning gcd value
+        return x
+
+    def calculateAspectRatio(width, height):
+        aspectRatio = width / height
+        # formatting X value
+        aspectRatio = '%.3f' % aspectRatio
+        # setting text to the result 2
+        return aspectRatio

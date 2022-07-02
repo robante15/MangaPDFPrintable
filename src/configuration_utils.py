@@ -1,44 +1,33 @@
-import configparser
+from configparser import ConfigParser
+import json
+
+PARSER = ConfigParser()
+PARSER.read('config.cfg')
 
 
-class ConfigUtils:
-    configuracion = configparser.ConfigParser()
+class ConfigUtils():
+    #----------------------- MANGA CONFIGS -----------------------#
+    def addManga(mangas_array: list, name: str, width: float, height: float):
+        new_manga = {"nombre": name, "width": width, "height": height}
+        mangas_array.append(new_manga)
 
-    def __init__(self):
-        self.PDFMakingRunning = {}
-        self.OutputPDFRunning = {}
-        self.ConfigurationSections = ['PDFMaking', 'OutputPDF']
-        self.PDFMakingDefault = {'landscape_mode': 'True',
-                                 'paper_size': 'A4', 'paper_width': '210',
-                                 'paper_height': '178',
-                                 'print_margin': '4.65',
-                                 'middle_padding': '5'}
+    def saveManga(mangas_array: list):
+        global PARSER
+        PARSER['MANGA_SIZES']['sizes'] = json.dumps(mangas_array)
+        with open('config.cfg', 'w') as configfile:
+            PARSER.write(configfile)
 
-        self.OutputPDFDefault = {'directory': 'output',
-                                 'name': 'default.pdf',
-                                 'author': 'Lore Ipsum'}
+    def readMangasSizesList():
+        global PARSER
+        return json.loads(PARSER['MANGA_SIZES']['sizes'])
 
-    def save_configs(self, PDFMakingConfig, OutputPDFConfig):
-        '''Guarda las configuraciones de PDFMaking, y OutputPDF'''
-        ConfigUtils.configuracion['PDFMaking'] = {}
-        PDFMaking = ConfigUtils.configuracion['PDFMaking']
-        for clave in PDFMakingConfig:
-            valor = PDFMakingConfig[clave]
-            PDFMaking[clave] = valor
+    def getMangaSizeByName(mangas_array: list, manga_name: str):
+        filtrado = list(
+            filter(lambda manga: manga['nombre'] == manga_name, mangas_array))
+        return(filtrado[0]['width'], filtrado[0]['height'])
 
-        ConfigUtils.configuracion['OutputPDF'] = {}
-        OutputPDF = ConfigUtils.configuracion['OutputPDF']
-        for clave in OutputPDFConfig:
-            valor = OutputPDFConfig[clave]
-            OutputPDF[clave] = valor
+    def getMangaSizeByIndex(mangas_array: list, manga_index: int):
+        return(mangas_array[manga_index]['width'], mangas_array[manga_index]['height'])
 
-        with open('config.cfg', 'w') as archivoconfig:
-            ConfigUtils.configuracion.write(archivoconfig)
-
-    def read_section(self, section: str):
-        ConfigUtils.configuracion.read('config.cfg')
-        return ConfigUtils.configuracion._sections[section]
-
-    def read_actual_config(self):
-        self.OutputPDFRunning = self.read_section('OutputPDF')
-        self.PDFMakingRunning = self.read_section('PDFMaking')
+    def getMangaByIndex(mangas_array: list, manga_index: int):
+        return(mangas_array[manga_index]['nombre'], mangas_array[manga_index]['width'], mangas_array[manga_index]['height'])

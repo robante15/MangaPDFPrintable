@@ -108,7 +108,3 @@ class TableHelpers():
                     row-1, i, table.takeItem(row+1, i))
                 table.setCurrentCell(row-1, column)
             table.removeRow(row+1)
-
-    '''def addSeparator():
-        row = self.table_filesList.currentRow()
-        self.table_filesList.insertRow(row+1)'''

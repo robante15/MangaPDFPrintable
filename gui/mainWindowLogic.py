@@ -9,6 +9,7 @@ from gui.gfx_preview_helper import GFXHelper
 from src.img_splitter import IMGSplitter
 from src.file_utils import FileUtils
 from src.pdf_generation import PDFGeneration
+from src.configuration_utils import ConfigUtils
 
 INPUT_DIRECTORY: str = ''
 WORKING_DIRECTORY: str = ''
@@ -48,6 +49,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Pestaña 3
         self.btn_generatePDF.clicked.connect(self.generatePDFAction)
+        self.loadMangaSizeList()
+        self.cBox_mangaSize.currentIndexChanged.connect(
+            self.cboxMangaSizeChanged)
+        self.btn_saveMangaSize.clicked.connect(self.saveMangaSizeAction)
+        self.dsbox_mangaWidth.valueChanged.connect(
+            self.calculateAspectRatioManga)
 
     def deleteCurrentRow_filesList(self):
         TH.deleteCurrentRow(self.table_filesList)
@@ -90,20 +97,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         folder = str(QFileDialog.getExistingDirectory(
             self, "Selecciona un directorio"))
-        self.txt_inputFolder.setText(folder)
-        global INPUT_DIRECTORY
-        INPUT_DIRECTORY = folder
-        global WORKING_DIRECTORY
-        WORKING_DIRECTORY = folder + '/temp'
-        self.txt_pdfName.setText(os.path.basename(INPUT_DIRECTORY))
-        self.txt_workingDirectory.setText(WORKING_DIRECTORY)
-        self.txt_pdfInputDirectory.setText(WORKING_DIRECTORY)
-        self.statusbar.showMessage('Directorio: ' + INPUT_DIRECTORY)
+        if folder != '':
+            self.txt_inputFolder.setText(folder)
+            global INPUT_DIRECTORY
+            INPUT_DIRECTORY = folder
+            global WORKING_DIRECTORY
+            WORKING_DIRECTORY = folder + '/temp'
+            self.txt_pdfName.setText(os.path.basename(INPUT_DIRECTORY))
+            self.txt_workingDirectory.setText(WORKING_DIRECTORY)
+            self.txt_pdfInputDirectory.setText(WORKING_DIRECTORY)
+            self.statusbar.showMessage('Directorio: ' + INPUT_DIRECTORY)
+            self.btn_loadFolderFiles.setEnabled(True)
 
     def OpenSeparatorFile(self):
         fname = QFileDialog.getOpenFileName(
             self, 'Seleccionar separador', INPUT_DIRECTORY, "Image files (*.jpg *.gif *.png *.jpeg)")
         self.txt_separatorPath.setText(fname[0])
+        self.btn_sortTableAddSeparator.setEnabled(True)
 
     def OpenWokingFolder(self):
         """Abre el directorio desde el cual se van a almacenar los archivos de imagen utilizados
@@ -124,6 +134,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.txt_inputFolder.text())
             TH.cleanTable(self.table_filesList)
             TH.fillTable(WORKING_ARRAY, self.table_filesList)
+            self.btn_fileListOK.setEnabled(True)
         else:
             self.statusbar.showMessage(
                 'Error: Primero debes de seleccionar un directorio')
@@ -175,8 +186,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global WORKING_DIRECTORY
         global WORKING_ARRAY
 
-        splitedFilesArray:list = []
-        auxiliarDupplaArray:list = []
+        splitedFilesArray: list = []
+        auxiliarDupplaArray: list = []
         backupFolder = WORKING_DIRECTORY + '/' + 'originalH'
 
         for file in horizontalFiles:
@@ -195,12 +206,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         TH.fillTable(splitedFilesArray, self.table_splitedFiles, True)
 
-        WORKING_ARRAY = FileUtils.addSplitedToArray(WORKING_ARRAY, auxiliarDupplaArray)
-        TH.fillTable(WORKING_ARRAY, self.table_SortedSplitedFiles, directoryCol=1)
+        WORKING_ARRAY = FileUtils.addSplitedToArray(
+            WORKING_ARRAY, auxiliarDupplaArray)
+        TH.fillTable(WORKING_ARRAY, self.table_SortedSplitedFiles,
+                     directoryCol=1)
 
 
 # ----------------------- Pestaña 3 / Generación del PDF ----------------------- #
 
+
+    def loadMangaSizeList(self):
+        self.cBox_mangaSize.clear()
+        mangasSizeList = ConfigUtils.readMangasSizesList()
+        for manga in mangasSizeList:
+            self.cBox_mangaSize.addItem(manga['nombre'])
+        # print(mangasSizeList)
+
+    def cboxMangaSizeChanged(self):
+        index = self.cBox_mangaSize.currentIndex()
+        mangasSizeList = ConfigUtils.readMangasSizesList()
+        width, height = mangasSizeList[index]['width'], mangasSizeList[index]['height']
+        self.dsbox_mangaHeight.setValue(height)
+        self.dsbox_mangaWidth.setValue(width)
+        PDFGeneration.manga_size_w = width
+        PDFGeneration.manga_size_h = height
+
+    def saveMangaSizeAction(self):
+        mangas_array = ConfigUtils.readMangasSizesList()
+        manga_name = self.cBox_mangaSize.currentText()
+        height = self.dsbox_mangaHeight.value()
+        width = self.dsbox_mangaWidth.value()
+        ConfigUtils.addManga(mangas_array, manga_name, width, height)
+        ConfigUtils.saveManga(mangas_array)
+        self.loadMangaSizeList()
 
     def generatePDFAction(self):
         global WORKING_DIRECTORY
@@ -213,3 +251,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             indice += 1'''
         PDFName = self.txt_pdfName.text() + '.pdf'
         PDFGeneration.makepdf(WORKING_ARRAY, PDFName)
+
+    def calculateAspectRatioManga(self):
+        manga_w = self.dsbox_mangaWidth.value()
+        manga_h = self.dsbox_mangaHeight.value()
+        aspectRatio = IMGSplitter.calculateAspectRatio(manga_w, manga_h)
+        self.lbl_mangaAspectRatio.setText(aspectRatio + ":1")
